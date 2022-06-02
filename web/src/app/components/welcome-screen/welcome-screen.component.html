@@ -1,0 +1,7 @@
+<div>
+  <input type="text" [(ngModel)]="username">
+  <input type="submit" (click)="submitUser()">
+  <div *ngIf="isClicked">
+    {{ "username is " + username }}
+  </div>
+</div>
