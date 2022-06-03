@@ -16,7 +16,8 @@ export class WelcomeScreenComponent {
   }
 
   submitUser() {
-    this.router.navigate(['lobby'])
+    // submit a user to a lobby and redirect him into that lobby
+    this.router.navigate(['lobby', {}])
   }
 
 }
