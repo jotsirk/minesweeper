@@ -13,7 +13,7 @@ class MineFieldServiceTest {
 
     @Test
     fun `displayPlayingBoard`() {
-        val playingField = mineFieldService.generateMineField(10, 4)
+        val playingField = mineFieldService.generateMineField(10, 10)
         mineFieldService.displayPlayingField(playingField)
     }
 }

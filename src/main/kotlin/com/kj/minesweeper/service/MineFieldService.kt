@@ -7,11 +7,7 @@ open class MineFieldService {
 
     fun generateMineField(sizeOfField: Int, numOfBombs: Int): Array<Array<MineField>> {
         val playingField: Array<Array<MineField>> = Array(sizeOfField) { Array(sizeOfField) { MineField() } }
-
-        // todo add random bombs
         setBombsInPlayingField(numOfBombs, playingField)
-        // todo add numbers to indicate how many bombs are touching what fields
-
         return playingField
     }
 
@@ -29,8 +25,23 @@ open class MineFieldService {
                 }
 
                 mineField.isBomb = true
+                initBombTouchingFields(playingField, rowIndex, columnIndex)
 
                 bombsInPlay--
+            }
+        }
+    }
+
+    private fun initBombTouchingFields(playingField: Array<Array<MineField>>, rowNumber: Int, columnNumber: Int) {
+        for (directionArray in fieldCircle) {
+            try {
+                val mineField = playingField[rowNumber - directionArray[0]][columnNumber - directionArray[1]]
+                if (mineField.isBomb) {
+                    continue
+                }
+                mineField.howManyTouchingBombs++
+            } catch (ex: ArrayIndexOutOfBoundsException) {
+                continue
             }
         }
     }
@@ -42,5 +53,18 @@ open class MineFieldService {
             }
             println()
         }
+    }
+
+    companion object {
+        private val fieldCircle = arrayOf(
+            intArrayOf(-1, -1),
+            intArrayOf(0, -1),
+            intArrayOf(1, -1),
+            intArrayOf(-1, 0),
+            intArrayOf(1, 0),
+            intArrayOf(-1, 1),
+            intArrayOf(0, 1),
+            intArrayOf(1, 1),
+        )
     }
 }

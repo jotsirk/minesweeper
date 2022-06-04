@@ -1,7 +1,7 @@
 package com.kj.minesweeper.model
 
 class MineField(
-    val howManyTouchingBombs: Int = 0,
+    var howManyTouchingBombs: Int = 0,
     var isBomb: Boolean = false,
     val isOpened: Boolean = false,
     val isFlagged: Boolean = false,
