@@ -18,7 +18,6 @@ export class LobbyComponent implements OnInit {
 
   ngOnInit() {
     this.currentUser = history.state
-    console.log(this.currentUser)
   }
 
 }
