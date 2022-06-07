@@ -1,19 +1,24 @@
-import {Component} from "@angular/core";
-import {Router, ActivatedRoute, ParamMap} from "@angular/router";
+import {Component, OnInit} from "@angular/core";
+import {ActivatedRoute, Router} from "@angular/router";
+import {User} from "../models/user.model";
 
 @Component({
   selector: "lobby",
   templateUrl: "lobby.component.html"
 })
-export class LobbyComponent {
+export class LobbyComponent implements OnInit {
+
+  private currentUser: User | null = null;
 
   constructor(
-    private route: ActivatedRoute,
+    private activatedRoute: ActivatedRoute,
+    private router: Router
   ) {
   }
 
   ngOnInit() {
-
+    this.currentUser = history.state
+    console.log(this.currentUser)
   }
 
 }

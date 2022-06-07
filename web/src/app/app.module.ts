@@ -6,17 +6,19 @@ import {AppComponent} from './app.component';
 import {WelcomeScreenComponent} from "./components/welcome-screen/welcome-screen.component";
 import {FormsModule} from "@angular/forms";
 import {LobbyComponent} from "./components/lobby/lobby.component";
+import {HttpClientModule} from "@angular/common/http";
 
 @NgModule({
   declarations: [
     AppComponent,
     WelcomeScreenComponent,
-    LobbyComponent
+    LobbyComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     FormsModule,
+    HttpClientModule,
   ],
   providers: [],
   bootstrap: [AppComponent]
