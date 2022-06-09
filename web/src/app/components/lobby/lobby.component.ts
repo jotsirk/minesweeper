@@ -32,7 +32,7 @@ export class LobbyComponent implements OnInit {
     const _this = this
     this.stompClient.connect({}, function (frame) {
       console.log('connected' + frame)
-      _this.stompClient?.subscribe('/topic/message', function (hello) {
+      _this.stompClient?.subscribe('/topic/messages', function (hello) {
         console.log(hello.body)
         _this.showMessage(JSON.parse(hello.body))
       })
@@ -40,7 +40,9 @@ export class LobbyComponent implements OnInit {
   }
 
   sendMessage() {
-
+    this.stompClient?.send('/app/chat',
+      {},
+      JSON.stringify({'from': 'lmao', 'msg': 'hello'}))
   }
 
   showMessage(message: any) {
