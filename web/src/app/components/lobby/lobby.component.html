@@ -1,12 +1,13 @@
 <div>
   <div>
     userList
+    <div *ngFor="let user of gameroomUsers">
+      {{ user.username }}
+    </div>
   </div>
   <div>
     chat space
-    <div *ngFor="greetings">
-      {{ greetings }}
-    </div>
+
     <input type="button" value="send message" (click)="sendMessage()">
   </div>
   <div>

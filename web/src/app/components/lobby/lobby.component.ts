@@ -3,6 +3,7 @@ import {ActivatedRoute, Router} from "@angular/router";
 import {User} from "../models/user.model";
 import * as Stomp from "stompjs";
 import * as SockJS from "sockjs-client";
+import {GameService} from "../../services/game.service";
 
 @Component({
   selector: "lobby",
@@ -10,11 +11,13 @@ import * as SockJS from "sockjs-client";
 })
 export class LobbyComponent implements OnInit {
 
-  greetings: string[] = [];
+  private greetings: string[] = [];
   private currentUser: User | null = null;
   private stompClient: Stomp.Client | null = null;
+  gameroomUsers: User[] = [];
 
   constructor(
+    private gameService: GameService,
     private activatedRoute: ActivatedRoute,
     private router: Router
   ) {
@@ -23,7 +26,16 @@ export class LobbyComponent implements OnInit {
   ngOnInit() {
     this.currentUser = history.state
     console.log(this.currentUser)
+    this.loadGameRoomUser()
     this.connect()
+  }
+
+  loadGameRoomUser() {
+    // todo this needs to come from the backend
+    //this.gameService.getGameroomUsers().subscribe(data => this.gameroomUsers = data)
+    for (let i=0; i<10; i++) {
+      this.gameroomUsers.push(new User("user"+i));
+    }
   }
 
   connect() {
@@ -31,9 +43,7 @@ export class LobbyComponent implements OnInit {
     this.stompClient = Stomp.over(socket)
     const _this = this
     this.stompClient.connect({}, function (frame) {
-      console.log('connected' + frame)
       _this.stompClient?.subscribe('/topic/messages', function (hello) {
-        console.log(hello.body)
         _this.showMessage(JSON.parse(hello.body))
       })
     })
@@ -45,7 +55,10 @@ export class LobbyComponent implements OnInit {
       JSON.stringify({'from': 'lmao', 'msg': 'hello'}))
   }
 
-  showMessage(message: any) {
+  showMessage(message
+                :
+                any
+  ) {
     this.greetings.push(message);
   }
 }
