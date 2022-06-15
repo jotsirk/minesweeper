@@ -7,12 +7,14 @@ import {WelcomeScreenComponent} from "./components/welcome-screen/welcome-screen
 import {FormsModule} from "@angular/forms";
 import {LobbyComponent} from "./components/lobby/lobby.component";
 import {HttpClientModule} from "@angular/common/http";
+import {MineComponent} from "./components/mine/mine.component";
 
 @NgModule({
   declarations: [
     AppComponent,
     WelcomeScreenComponent,
     LobbyComponent,
+    MineComponent
   ],
   imports: [
     BrowserModule,

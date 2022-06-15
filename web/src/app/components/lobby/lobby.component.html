@@ -1,16 +1,18 @@
 <div>
   <div>
-    userList
-    <div *ngFor="let user of gameroomUsers">
-      {{ user.username }}
+    <mine *ngFor="mineField"/>
+  </div>
+  <div>
+    <div>
+      userList
+      <div *ngFor="let user of gameroomUsers">
+        {{ user.username }}
+      </div>
     </div>
-  </div>
-  <div>
-    chat space
+    <div>
+      chat space
 
-    <input type="button" value="send message" (click)="sendMessage()">
-  </div>
-  <div>
-    minesweeper field
+      <input type="button" value="send message" (click)="sendMessage()">
+    </div>
   </div>
 </div>

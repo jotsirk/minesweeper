@@ -4,6 +4,7 @@ import {User} from "../models/user.model";
 import * as Stomp from "stompjs";
 import * as SockJS from "sockjs-client";
 import {GameService} from "../../services/game.service";
+import {Mine} from "../models/mine.model";
 
 @Component({
   selector: "lobby",
@@ -15,6 +16,7 @@ export class LobbyComponent implements OnInit {
   private currentUser: User | null = null;
   private stompClient: Stomp.Client | null = null;
   gameroomUsers: User[] = [];
+  mineField: Object[][] = [];
 
   constructor(
     private gameService: GameService,
@@ -28,13 +30,14 @@ export class LobbyComponent implements OnInit {
     console.log(this.currentUser)
     this.loadGameRoomUser()
     this.connect()
+    this.loadMineField();
   }
 
   loadGameRoomUser() {
     // todo this needs to come from the backend
     //this.gameService.getGameroomUsers().subscribe(data => this.gameroomUsers = data)
-    for (let i=0; i<10; i++) {
-      this.gameroomUsers.push(new User("user"+i));
+    for (let i = 0; i < 10; i++) {
+      this.gameroomUsers.push(new User("user" + i));
     }
   }
 
@@ -55,10 +58,15 @@ export class LobbyComponent implements OnInit {
       JSON.stringify({'from': 'lmao', 'msg': 'hello'}))
   }
 
-  showMessage(message
-                :
-                any
-  ) {
+  showMessage(message: any) {
     this.greetings.push(message);
+  }
+
+  loadMineField() {
+    for (let i=0; i<10; i++) {
+      for (let j=0; j<10; j++) {
+        this.mineField[i][j] = new Mine(i, j);
+      }
+    }
   }
 }
