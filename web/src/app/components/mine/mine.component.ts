@@ -1,14 +1,11 @@
-import {Component} from "@angular/core";
+import {Component, Input} from "@angular/core";
 import {Mine} from "../models/mine.model";
 
 @Component({
-  selector: "mine",
+  selector: "mine-component",
   templateUrl: "mine.component.html",
   styleUrls: ["mine.component.css"],
 })
 export class MineComponent {
-
-  constructor(mine: Mine) {
-  }
-
+  @Input() mine: Mine | null = null;
 }

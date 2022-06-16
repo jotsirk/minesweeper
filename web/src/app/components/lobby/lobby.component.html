@@ -1,6 +1,10 @@
 <div>
   <div>
-    <mine *ngFor="mineField"/>
+    <div *ngFor="let mines of mineField">
+      <div *ngFor="let mine of mines">
+        <mine-component [mine]="mine"></mine-component>
+      </div>
+    </div>
   </div>
   <div>
     <div>

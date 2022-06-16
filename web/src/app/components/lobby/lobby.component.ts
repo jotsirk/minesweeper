@@ -16,7 +16,7 @@ export class LobbyComponent implements OnInit {
   private currentUser: User | null = null;
   private stompClient: Stomp.Client | null = null;
   gameroomUsers: User[] = [];
-  mineField: Object[][] = [];
+  mineField: Mine[][] = [];
 
   constructor(
     private gameService: GameService,
@@ -63,10 +63,17 @@ export class LobbyComponent implements OnInit {
   }
 
   loadMineField() {
+    let rowMines = []
     for (let i=0; i<10; i++) {
       for (let j=0; j<10; j++) {
-        this.mineField[i][j] = new Mine(i, j);
+        rowMines.push(new Mine(i, j));
       }
+      this.mineField.push(rowMines);
+      rowMines = [];
     }
+  }
+
+  printArray() {
+    console.log(this.mineField);
   }
 }
