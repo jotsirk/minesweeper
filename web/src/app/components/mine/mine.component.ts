@@ -2,10 +2,14 @@ import {Component, Input} from "@angular/core";
 import {Mine} from "../models/mine.model";
 
 @Component({
-  selector: "mine-component",
+  selector: "mine",
   templateUrl: "mine.component.html",
   styleUrls: ["mine.component.css"],
 })
 export class MineComponent {
-  @Input() mine: Mine | null = null;
+  @Input() mine!: Mine;
+
+  onClick() {
+    console.log(this.mine.indexX + ' ' + this.mine.indexY)
+  }
 }

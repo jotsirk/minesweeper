@@ -1,21 +1,18 @@
 <div>
   <div>
     <div *ngFor="let mines of mineField">
-      <div *ngFor="let mine of mines">
-        <mine-component [mine]="mine"></mine-component>
+      <div class="minefield-row" >
+        <mine *ngFor="let mine of mines" [mine]="mine" style="display: inline-block"></mine>
       </div>
     </div>
   </div>
   <div>
     <div>
-      userList
       <div *ngFor="let user of gameroomUsers">
         {{ user.username }}
       </div>
     </div>
     <div>
-      chat space
-
       <input type="button" value="send message" (click)="sendMessage()">
     </div>
   </div>

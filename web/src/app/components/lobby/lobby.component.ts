@@ -63,17 +63,21 @@ export class LobbyComponent implements OnInit {
   }
 
   loadMineField() {
-    let rowMines = []
-    for (let i=0; i<10; i++) {
-      for (let j=0; j<10; j++) {
-        rowMines.push(new Mine(i, j));
-      }
-      this.mineField.push(rowMines);
-      rowMines = [];
-    }
+    let rowMines = [];
+    this.gameService.getMinefield().subscribe(data => {
+      console.log(data);
+      rowMinesT = data;
+    })
+
+
   }
 
-  printArray() {
-    console.log(this.mineField);
+  private initMineField(rowMines: [][]) {
+    for (let i = 0; i < rowMines.length; i++) {
+      for (let j = 0; j < rowMines[i].length; j++) {
+        this.mineField.push(new Mine(i, j, rowMines[i][j]['test'], rowMines[i][j]['test']));
+      }
+      this.mineField.push(rowMines);
+    }
   }
 }

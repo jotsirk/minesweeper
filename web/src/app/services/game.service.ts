@@ -1,5 +1,5 @@
 import {Injectable} from "@angular/core";
-import {HttpClient, HttpHeaders} from "@angular/common/http";
+import {HttpClient} from "@angular/common/http";
 import {User} from "../components/models/user.model";
 import {Observable} from 'rxjs';
 
@@ -20,4 +20,7 @@ export class GameService {
     return this.httpClient.get(this.baseUrl + "/users/")
   }
 
+  getMinefield(): Observable<any> {
+    return this.httpClient.get(this.baseUrl + '/api/get-minefield')
+  }
 }

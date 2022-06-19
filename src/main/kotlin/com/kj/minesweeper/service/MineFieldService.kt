@@ -1,9 +1,11 @@
 package com.kj.minesweeper.service
 
 import com.kj.minesweeper.model.MineField
+import org.springframework.stereotype.Service
 import kotlin.random.Random
 
-open class MineFieldService {
+@Service
+class MineFieldService {
 
     fun generateMineField(sizeOfField: Int, numOfBombs: Int): Array<Array<MineField>> {
         val playingField: Array<Array<MineField>> = Array(sizeOfField) { Array(sizeOfField) { MineField() } }
