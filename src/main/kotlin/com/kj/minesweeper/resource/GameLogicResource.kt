@@ -1,7 +1,7 @@
 package com.kj.minesweeper.resource
 
 import com.kj.minesweeper.model.MessageModel
-import com.kj.minesweeper.model.MineField
+import com.kj.minesweeper.model.Mine
 import com.kj.minesweeper.model.User
 import com.kj.minesweeper.service.MineFieldService
 import com.kj.minesweeper.service.UserService
@@ -34,7 +34,13 @@ class GameLogicResource {
 
     @GetMapping("/api/get-minefield")
     @ResponseStatus(HttpStatus.OK)
-    fun getMineField(): Array<Array<MineField>> {
+    fun getMineField(): Array<Array<Mine>> {
         return mineFieldService.generateMineField(10, 10)
+    }
+
+    @GetMapping("/api/get-users")
+    @ResponseStatus(HttpStatus.OK)
+    fun getUsers(): MutableCollection<User> {
+        return userService.getRegisteredUsers()
     }
 }

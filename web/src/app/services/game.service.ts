@@ -16,8 +16,7 @@ export class GameService {
   }
 
   getGameroomUsers(): Observable<any> {
-    // todo finish this method
-    return this.httpClient.get(this.baseUrl + "/users/")
+    return this.httpClient.get(this.baseUrl + "/api/get-users")
   }
 
   getMinefield(): Observable<any> {

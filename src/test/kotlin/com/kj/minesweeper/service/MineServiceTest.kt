@@ -6,14 +6,8 @@ import org.mockito.Mock
 import org.mockito.junit.MockitoJUnitRunner
 
 @RunWith(MockitoJUnitRunner::class)
-class MineFieldServiceTest {
+class MineServiceTest {
 
     @Mock
     private lateinit var mineFieldService: MineFieldService
-
-    @Test
-    fun `displayPlayingBoard`() {
-        val playingField = mineFieldService.generateMineField(10, 10)
-        mineFieldService.displayPlayingField(playingField)
-    }
 }

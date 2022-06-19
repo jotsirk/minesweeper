@@ -1,19 +1,29 @@
 <div>
-  <div>
-    <div *ngFor="let mines of mineField">
-      <div class="minefield-row" >
-        <mine *ngFor="let mine of mines" [mine]="mine" style="display: inline-block"></mine>
-      </div>
-    </div>
-  </div>
-  <div>
+  <div class="user-list">
     <div>
       <div *ngFor="let user of gameroomUsers">
         {{ user.username }}
       </div>
     </div>
+  </div>
+  <div>
+    <div *ngFor="let mines of mineField" class="col-12">
+      <div class="minefield-row">
+        <mine *ngFor="let mine of mines" [mine]="mine" style="display: inline-block"></mine>
+      </div>
+    </div>
+  </div>
+  <div class="chat-space">
+    <div class="chat-area">
+      <p *ngFor="let message of chatRoomMessages">
+        {{ message }}
+      </p>
+    </div>
     <div>
-      <input type="button" value="send message" (click)="sendMessage()">
+      <input type="text" class="message-field" [(ngModel)]="messageField">
+      <button class="submit-message" (click)="sendMessage()">
+        Submit
+      </button>
     </div>
   </div>
 </div>

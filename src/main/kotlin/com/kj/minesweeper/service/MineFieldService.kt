@@ -1,19 +1,19 @@
 package com.kj.minesweeper.service
 
-import com.kj.minesweeper.model.MineField
+import com.kj.minesweeper.model.Mine
 import org.springframework.stereotype.Service
 import kotlin.random.Random
 
 @Service
 class MineFieldService {
 
-    fun generateMineField(sizeOfField: Int, numOfBombs: Int): Array<Array<MineField>> {
-        val playingField: Array<Array<MineField>> = Array(sizeOfField) { Array(sizeOfField) { MineField() } }
+    fun generateMineField(sizeOfField: Int, numOfBombs: Int): Array<Array<Mine>> {
+        val playingField: Array<Array<Mine>> = Array(sizeOfField) { Array(sizeOfField) { Mine() } }
         setBombsInPlayingField(numOfBombs, playingField)
         return playingField
     }
 
-    private fun setBombsInPlayingField(numOfBombs: Int, playingField: Array<Array<MineField>>) {
+    private fun setBombsInPlayingField(numOfBombs: Int, playingField: Array<Array<Mine>>) {
         var bombsInPlay = numOfBombs
 
         for (i in 0 until numOfBombs) {
@@ -34,7 +34,7 @@ class MineFieldService {
         }
     }
 
-    private fun initBombTouchingFields(playingField: Array<Array<MineField>>, rowNumber: Int, columnNumber: Int) {
+    private fun initBombTouchingFields(playingField: Array<Array<Mine>>, rowNumber: Int, columnNumber: Int) {
         for (directionArray in fieldCircle) {
             try {
                 val mineField = playingField[rowNumber - directionArray[0]][columnNumber - directionArray[1]]
@@ -45,15 +45,6 @@ class MineFieldService {
             } catch (ex: ArrayIndexOutOfBoundsException) {
                 continue
             }
-        }
-    }
-
-    fun displayPlayingField(playingField: Array<Array<MineField>>) {
-        for (i in playingField.indices) {
-            for (j in 0 until playingField[i].size) {
-                print(playingField[i][j].displayFieldString())
-            }
-            println()
         }
     }
 

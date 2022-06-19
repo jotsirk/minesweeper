@@ -8,15 +8,17 @@ import {Mine} from "../models/mine.model";
 
 @Component({
   selector: "lobby",
-  templateUrl: "lobby.component.html"
+  templateUrl: "lobby.component.html",
+  styleUrls: ['lobby.component.css']
 })
 export class LobbyComponent implements OnInit {
 
-  private greetings: string[] = [];
   private currentUser: User | null = null;
   private stompClient: Stomp.Client | null = null;
+  chatRoomMessages: string[] = [];
   gameroomUsers: User[] = [];
   mineField: Mine[][] = [];
+  messageField = '';
 
   constructor(
     private gameService: GameService,
@@ -26,19 +28,16 @@ export class LobbyComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.currentUser = history.state
-    console.log(this.currentUser)
-    this.loadGameRoomUser()
-    this.connect()
+    // todo check about the current user thing. refresh loses username and everything else will break because of this
+    console.log(history.state);
+    this.currentUser = history.state;
+    this.loadGameRoomUser();
+    this.connect();
     this.loadMineField();
   }
 
   loadGameRoomUser() {
-    // todo this needs to come from the backend
-    //this.gameService.getGameroomUsers().subscribe(data => this.gameroomUsers = data)
-    for (let i = 0; i < 10; i++) {
-      this.gameroomUsers.push(new User("user" + i));
-    }
+    this.gameService.getGameroomUsers().subscribe(data => this.gameroomUsers = data);
   }
 
   connect() {
@@ -47,37 +46,40 @@ export class LobbyComponent implements OnInit {
     const _this = this
     this.stompClient.connect({}, function (frame) {
       _this.stompClient?.subscribe('/topic/messages', function (hello) {
-        _this.showMessage(JSON.parse(hello.body))
+        _this.showMessage(JSON.parse(hello.body));
       })
     })
   }
 
   sendMessage() {
+    //todo save message to some place so that refresh does not lose these
+    console.log(this.currentUser?.username);
     this.stompClient?.send('/app/chat',
       {},
-      JSON.stringify({'from': 'lmao', 'msg': 'hello'}))
+      JSON.stringify({'from': this.currentUser?.username, 'msg': this.messageField}));
+    this.messageField = '';
   }
 
   showMessage(message: any) {
-    this.greetings.push(message);
+    this.chatRoomMessages.push(message);
   }
 
   loadMineField() {
-    let rowMines = [];
     this.gameService.getMinefield().subscribe(data => {
-      console.log(data);
-      rowMinesT = data;
+      this.initMineField(data);
     })
-
-
   }
 
-  private initMineField(rowMines: [][]) {
-    for (let i = 0; i < rowMines.length; i++) {
-      for (let j = 0; j < rowMines[i].length; j++) {
-        this.mineField.push(new Mine(i, j, rowMines[i][j]['test'], rowMines[i][j]['test']));
+  private initMineField(generatedMineField: [][]) {
+    let rowMines: Mine[] = [];
+    for (let i = 0; i < generatedMineField.length; i++) {
+      for (let j = 0; j < generatedMineField[i].length; j++) {
+        rowMines.push(new Mine(i, j,
+          generatedMineField[i][j]['isBomb'],
+          generatedMineField[i][j]['howManyTouchingBombs']))
       }
       this.mineField.push(rowMines);
+      rowMines = [];
     }
   }
 }

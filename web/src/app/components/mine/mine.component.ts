@@ -12,4 +12,17 @@ export class MineComponent {
   onClick() {
     console.log(this.mine.indexX + ' ' + this.mine.indexY)
   }
+
+  displayMine(): string {
+    let displayedValue: string;
+
+    if (this.mine.isBomb) {
+      displayedValue = 'x';
+    } else if (!this.mine.isBomb) {
+      displayedValue = this.mine.howManyBombsTouching.toString();
+    } else {
+      displayedValue = '';
+    }
+    return displayedValue;
+  }
 }

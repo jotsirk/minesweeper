@@ -1,17 +1,9 @@
 package com.kj.minesweeper.model
 
-class MineField(
+class Mine(
     var howManyTouchingBombs: Int = 0,
     var isBomb: Boolean = false,
     var isOpened: Boolean = false,
     var isFlagged: Boolean = false,
     var isRevealed: Boolean = false
-) {
-
-    fun displayFieldString(): String {
-        if (isBomb) {
-            return "[x]"
-        }
-        return "[$howManyTouchingBombs]"
-    }
-}
+) {}

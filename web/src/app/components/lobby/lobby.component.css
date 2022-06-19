@@ -1,0 +1,6 @@
+.chat-area {
+  width: 20em;
+  height: 40em;
+  border: 1px solid gray;
+  background-color: #ccc;
+}
