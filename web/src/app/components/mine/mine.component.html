@@ -1,3 +1,5 @@
 <div class="mine" (click)="onClick()">
-  {{ displayMine() }}
+  <div *ngIf="mine.isRevealed">
+    {{ displayMine() }}
+  </div>
 </div>

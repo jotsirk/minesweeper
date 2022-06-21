@@ -4,6 +4,7 @@ export class Mine {
   private _indexY: number;
   private _isBomb: Boolean;
   private _howManyBombsTouching: number;
+  private _isRevealed: Boolean = false;
 
   constructor(indexX: number, indexY: number, isBomb: Boolean, howManyBombsTouching: number) {
     this._indexX = indexX;
@@ -42,6 +43,14 @@ export class Mine {
 
   set howManyBombsTouching(value: number) {
     this._howManyBombsTouching = value;
+  }
+
+  get isRevealed(): Boolean {
+    return this._isRevealed;
+  }
+
+  set isRevealed(value: Boolean) {
+    this._isRevealed = value;
   }
 
 }

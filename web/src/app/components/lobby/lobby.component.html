@@ -1,19 +1,17 @@
 <div>
-  <div class="user-list">
+  <div class="user-list col-3">
     <div>
       <div *ngFor="let user of gameroomUsers">
         {{ user.username }}
       </div>
     </div>
   </div>
-  <div>
-    <div *ngFor="let mines of mineField" class="col-12">
-      <div class="minefield-row">
-        <mine *ngFor="let mine of mines" [mine]="mine" style="display: inline-block"></mine>
-      </div>
+  <div class="col-6">
+    <div *ngFor="let mines of mineField" class="mine-field-row">
+      <mine *ngFor="let mine of mines" [mine]="mine"></mine>
     </div>
   </div>
-  <div class="chat-space">
+  <div class="chat-space col-3">
     <div class="chat-area">
       <p *ngFor="let message of chatRoomMessages">
         {{ message }}
