@@ -53,4 +53,8 @@ export class Mine {
     this._isRevealed = value;
   }
 
+  get coordinates() {
+    return [this.indexX, this.indexY];
+  }
+
 }

@@ -1,5 +1,6 @@
 import {Component, Input} from "@angular/core";
 import {Mine} from "../models/mine.model";
+import {GameService} from "../../services/game.service";
 
 @Component({
   selector: "mine",
@@ -9,8 +10,14 @@ import {Mine} from "../models/mine.model";
 export class MineComponent {
   @Input() mine!: Mine;
 
+  constructor(private gameService: GameService) {
+  }
+
   onClick() {
-    console.log(this.mine.indexX + ' ' + this.mine.indexY)
+    this.gameService.registerMineClick(this.mine.coordinates)
+      .subscribe(() => {
+        console.log("try and update something");
+      });
   }
 
   displayMine(): string {

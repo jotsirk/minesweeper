@@ -22,4 +22,8 @@ export class GameService {
   getMinefield(): Observable<any> {
     return this.httpClient.get(this.baseUrl + '/api/get-minefield')
   }
+
+  registerMineClick(mineCoordinates: number[]): Observable<any> {
+    return this.httpClient.post(this.baseUrl + '/api/register-mine-click', mineCoordinates)
+  }
 }
