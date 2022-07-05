@@ -35,12 +35,18 @@ class GameLogicResource {
     @GetMapping("/api/get-minefield")
     @ResponseStatus(HttpStatus.OK)
     fun getMineField(): Array<Array<Mine>> {
-        return mineFieldService.generateMineField(10, 10)
+        return mineFieldService.getMineField()
     }
 
     @GetMapping("/api/get-users")
     @ResponseStatus(HttpStatus.OK)
     fun getUsers(): MutableCollection<User> {
         return userService.getRegisteredUsers()
+    }
+
+    @PostMapping("/api/register-mine-click")
+    @ResponseStatus(HttpStatus.OK)
+    fun registerMineClik(@RequestBody mineCoordinates: Array<Int>) {
+        return mineFieldService.registerMineClick(mineCoordinates)
     }
 }

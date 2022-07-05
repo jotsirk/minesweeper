@@ -7,10 +7,17 @@ import kotlin.random.Random
 @Service
 class MineFieldService {
 
-    fun generateMineField(sizeOfField: Int, numOfBombs: Int): Array<Array<Mine>> {
+    private var mineField: Array<Array<Mine>> = emptyList<Array<Mine>>().toTypedArray()
+
+    fun getMineField(): Array<Array<Mine>> {
+        generateMineField(10, 10)
+        return mineField
+    }
+
+    fun generateMineField(sizeOfField: Int, numOfBombs: Int) {
         val playingField: Array<Array<Mine>> = Array(sizeOfField) { Array(sizeOfField) { Mine() } }
         setBombsInPlayingField(numOfBombs, playingField)
-        return playingField
+        this.mineField = playingField
     }
 
     private fun setBombsInPlayingField(numOfBombs: Int, playingField: Array<Array<Mine>>) {
@@ -46,6 +53,12 @@ class MineFieldService {
                 continue
             }
         }
+    }
+
+    fun registerMineClick(clickedMineCoordinates: Array<Int>) {
+        val mine = mineField[clickedMineCoordinates[0]][clickedMineCoordinates[1]]
+        // todo some gamelogic stuff right here
+        println(mine)
     }
 
     companion object {
