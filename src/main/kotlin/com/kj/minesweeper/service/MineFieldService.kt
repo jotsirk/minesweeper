@@ -68,7 +68,7 @@ class MineFieldService {
     }
 
     private fun mineClick(mine: Mine): List<Mine> {
-        var affectedMines = mutableListOf(mine)
+        val affectedMines = mutableListOf(mine)
         mine.isRevealed = true
 
         if (mine.isBomb) {
