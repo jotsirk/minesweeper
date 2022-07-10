@@ -7,20 +7,27 @@ import kotlin.random.Random
 @Service
 class MineFieldService {
 
-    private var mineField: Array<Array<Mine>> = emptyList<Array<Mine>>().toTypedArray()
+    private var mineField: Array<Array<Mine?>>? = null
 
-    fun getMineField(): Array<Array<Mine>> {
+    fun getMineField(): Array<Array<Mine?>>? {
         generateMineField(10, 10)
         return mineField
     }
 
     fun generateMineField(sizeOfField: Int, numOfBombs: Int) {
-        val playingField: Array<Array<Mine>> = Array(sizeOfField) { Array(sizeOfField) { Mine() } }
+        val playingField: Array<Array<Mine?>> = Array(sizeOfField) { Array(sizeOfField) { null } }
+
+        for (i in 0 until sizeOfField) {
+            for (j in 0 until sizeOfField) {
+                playingField[i][j] = Mine(indexX = i, indexY = j)
+            }
+        }
+
         setBombsInPlayingField(numOfBombs, playingField)
         this.mineField = playingField
     }
 
-    private fun setBombsInPlayingField(numOfBombs: Int, playingField: Array<Array<Mine>>) {
+    private fun setBombsInPlayingField(numOfBombs: Int, playingField: Array<Array<Mine?>>) {
         var bombsInPlay = numOfBombs
 
         for (i in 0 until numOfBombs) {
@@ -29,7 +36,7 @@ class MineFieldService {
                 val columnIndex = Random.nextInt(0, playingField.size - 1)
                 val mineField = playingField[rowIndex][columnIndex]
 
-                if (mineField.isBomb) {
+                if (mineField!!.isBomb) {
                     continue
                 }
 
@@ -41,11 +48,11 @@ class MineFieldService {
         }
     }
 
-    private fun initBombTouchingFields(playingField: Array<Array<Mine>>, rowNumber: Int, columnNumber: Int) {
+    private fun initBombTouchingFields(playingField: Array<Array<Mine?>>, rowNumber: Int, columnNumber: Int) {
         for (directionArray in fieldCircle) {
             try {
                 val mineField = playingField[rowNumber - directionArray[0]][columnNumber - directionArray[1]]
-                if (mineField.isBomb) {
+                if (mineField!!.isBomb) {
                     continue
                 }
                 mineField.howManyTouchingBombs++
@@ -55,10 +62,23 @@ class MineFieldService {
         }
     }
 
-    fun registerMineClick(clickedMineCoordinates: Array<Int>) {
-        val mine = mineField[clickedMineCoordinates[0]][clickedMineCoordinates[1]]
-        // todo some gamelogic stuff right here
-        println(mine)
+    fun registerMineClick(clickedMineCoordinates: Array<Int>): List<Mine> {
+        val mine = mineField!![clickedMineCoordinates[0]][clickedMineCoordinates[1]]
+        return mineClick(mine!!)
+    }
+
+    private fun mineClick(mine: Mine): List<Mine> {
+        var affectedMines = mutableListOf(mine)
+        mine.isRevealed = true
+
+        if (mine.isBomb) {
+            // todo return some game ending event
+        }
+        if (mine.howManyTouchingBombs == 0) {
+            // todo reveal all directly touching bombs as well
+        }
+
+        return affectedMines
     }
 
     companion object {
