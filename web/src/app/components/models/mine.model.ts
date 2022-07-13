@@ -2,15 +2,12 @@ export class Mine {
 
   private _indexX: number;
   private _indexY: number;
-  private _isBomb: Boolean;
-  private _howManyBombsTouching: number;
+  private _displayValue: string | null = null;
   private _isRevealed: Boolean = false;
 
-  constructor(indexX: number, indexY: number, isBomb: Boolean, howManyBombsTouching: number) {
+  constructor(indexX: number, indexY: number) {
     this._indexX = indexX;
     this._indexY = indexY;
-    this._isBomb = isBomb;
-    this._howManyBombsTouching = howManyBombsTouching;
   }
 
   get indexX(): number {
@@ -29,28 +26,20 @@ export class Mine {
     this._indexY = value;
   }
 
-  get isBomb(): Boolean {
-    return this._isBomb;
-  }
-
-  set isBomb(value: Boolean) {
-    this._isBomb = value;
-  }
-
-  get howManyBombsTouching(): number {
-    return this._howManyBombsTouching;
-  }
-
-  set howManyBombsTouching(value: number) {
-    this._howManyBombsTouching = value;
-  }
-
   get isRevealed(): Boolean {
     return this._isRevealed;
   }
 
   set isRevealed(value: Boolean) {
     this._isRevealed = value;
+  }
+
+  get displayValue(): string | null {
+    return this._displayValue;
+  }
+
+  set displayValue(value: string | null) {
+    this._displayValue = value;
   }
 
   get coordinates() {

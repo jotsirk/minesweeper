@@ -1,4 +1,4 @@
-import {Component, Input} from "@angular/core";
+import {Component, EventEmitter, Input, Output} from "@angular/core";
 import {Mine} from "../models/mine.model";
 import {GameService} from "../../services/game.service";
 
@@ -9,27 +9,15 @@ import {GameService} from "../../services/game.service";
 })
 export class MineComponent {
   @Input() mine!: Mine;
+  @Output() changedMinesEvent = new EventEmitter<Mine[]>();
 
   constructor(private gameService: GameService) {
   }
 
   onClick() {
     this.gameService.registerMineClick(this.mine.coordinates)
-      .subscribe(() => {
-        console.log("try and update something");
+      .subscribe(data => {
+        this.changedMinesEvent.emit(data);
       });
-  }
-
-  displayMine(): string {
-    let displayedValue: string;
-
-    if (this.mine.isBomb) {
-      displayedValue = 'x';
-    } else if (!this.mine.isBomb) {
-      displayedValue = this.mine.howManyBombsTouching.toString();
-    } else {
-      displayedValue = '';
-    }
-    return displayedValue;
   }
 }

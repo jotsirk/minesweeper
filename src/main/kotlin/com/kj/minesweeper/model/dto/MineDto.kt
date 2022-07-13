@@ -4,5 +4,5 @@ class MineDto(
     val indexX: Int,
     val indexY: Int,
     val isRevealed: Boolean,
-    val displayField: String
+    val displayValue: String? = null
 )

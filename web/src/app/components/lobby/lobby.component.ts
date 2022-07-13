@@ -74,12 +74,14 @@ export class LobbyComponent implements OnInit {
     let rowMines: Mine[] = [];
     for (let i = 0; i < generatedMineField.length; i++) {
       for (let j = 0; j < generatedMineField[i].length; j++) {
-        rowMines.push(new Mine(i, j,
-          generatedMineField[i][j]['isBomb'],
-          generatedMineField[i][j]['howManyTouchingBombs']))
+        rowMines.push(new Mine(i, j));
       }
       this.mineField.push(rowMines);
       rowMines = [];
     }
+  }
+
+  updateMineField(changedMines: Mine[]) {
+    console.log(changedMines[0]);
   }
 }
