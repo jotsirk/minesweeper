@@ -15,7 +15,12 @@ class MineDtoConverter {
         for (i in mineField.indices) {
             for (j in 0 until mineField[i].size) {
                 mine = mineField[i][j]!!
-                playingField[i][j] = MineDto(indexX = mine.indexX, indexY = mine.indexY, isRevealed = mine.isRevealed)
+                playingField[i][j] = MineDto(
+                    indexX = mine.indexX,
+                    indexY = mine.indexY,
+                    isRevealed = mine.isRevealed,
+                    displayValue = mine.displayString()
+                )
             }
         }
 

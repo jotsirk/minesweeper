@@ -10,7 +10,9 @@ class MineFieldService {
     private var mineField: Array<Array<Mine?>>? = null
 
     fun getMineField(): Array<Array<Mine?>>? {
-        generateMineField(10, 10)
+        if (mineField.isNullOrEmpty()) {
+            generateMineField(10, 10)
+        }
         return mineField
     }
 

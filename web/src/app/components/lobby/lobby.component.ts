@@ -1,5 +1,4 @@
 import {Component, OnInit} from "@angular/core";
-import {ActivatedRoute, Router} from "@angular/router";
 import {User} from "../models/user.model";
 import * as Stomp from "stompjs";
 import * as SockJS from "sockjs-client";
@@ -21,15 +20,12 @@ export class LobbyComponent implements OnInit {
   messageField = '';
 
   constructor(
-    private gameService: GameService,
-    private activatedRoute: ActivatedRoute,
-    private router: Router
+    private gameService: GameService
   ) {
   }
 
   ngOnInit() {
     // todo check about the current user thing. refresh loses username and everything else will break because of this
-    console.log(history.state);
     this.currentUser = history.state;
     this.loadGameRoomUser();
     this.connect();
@@ -52,7 +48,7 @@ export class LobbyComponent implements OnInit {
   }
 
   sendMessage() {
-    //todo save message to some place so that refresh does not lose these
+    //todo save messages to some place so that refresh does not lose these
     console.log(this.currentUser?.username);
     this.stompClient?.send('/app/chat',
       {},
@@ -72,9 +68,12 @@ export class LobbyComponent implements OnInit {
 
   private initMineField(generatedMineField: [][]) {
     let rowMines: Mine[] = [];
+    let mine: Mine;
+
     for (let i = 0; i < generatedMineField.length; i++) {
       for (let j = 0; j < generatedMineField[i].length; j++) {
-        rowMines.push(new Mine(i, j));
+        mine = generatedMineField[i][j];
+        rowMines.push(new Mine(i, j, mine.displayValue, mine.isRevealed));
       }
       this.mineField.push(rowMines);
       rowMines = [];
@@ -82,6 +81,9 @@ export class LobbyComponent implements OnInit {
   }
 
   updateMineField(changedMines: Mine[]) {
-    console.log(changedMines[0]);
+    for (const changedMine of changedMines) {
+      this.mineField[changedMine.indexX][changedMine.indexY] =
+        new Mine(changedMine.indexX, changedMine.indexY, changedMine.displayValue, changedMine.isRevealed);
+    }
   }
 }
