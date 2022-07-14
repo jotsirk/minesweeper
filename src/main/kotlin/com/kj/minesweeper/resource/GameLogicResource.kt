@@ -53,4 +53,11 @@ class GameLogicResource {
     fun registerMineClick(@RequestBody mineCoordinates: Array<Int>): MutableCollection<MineDto> {
         return mineDtoConverter.convertAffectedMinesToDtoList(mineFieldService.registerMineClick(mineCoordinates))
     }
+
+    @PostMapping("/api/register-flag-click")
+    @ResponseStatus(HttpStatus.OK)
+    fun registerFlagClick(@RequestBody mineCoordinates: Array<Int>): MutableCollection<MineDto> {
+        // todo finish flagging
+        return mineDtoConverter.convertAffectedMinesToDtoList(mineFieldService.registerMineClick(mineCoordinates))
+    }
 }

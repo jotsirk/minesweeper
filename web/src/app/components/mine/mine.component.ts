@@ -25,4 +25,10 @@ export class MineComponent {
         this.changedMinesEvent.emit(data);
       });
   }
+
+  onFlag(event: any) {
+    event.preventDefault();
+
+    console.log("mine flagged");
+  }
 }

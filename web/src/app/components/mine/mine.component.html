@@ -1,4 +1,4 @@
-<div class="mine" (click)="onClick()">
+<div class="mine" (click)="onClick()" (contextmenu)="onFlag($event)">
   <div *ngIf="mine.isRevealed">
     {{ mine.displayValue }}
   </div>
