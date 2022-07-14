@@ -8,13 +8,15 @@ import {FormsModule} from "@angular/forms";
 import {LobbyComponent} from "./components/lobby/lobby.component";
 import {HttpClientModule} from "@angular/common/http";
 import {MineComponent} from "./components/mine/mine.component";
+import {MineClickDirective} from "./components/lobby/directive/mine-click.directive";
 
 @NgModule({
   declarations: [
     AppComponent,
     WelcomeScreenComponent,
     LobbyComponent,
-    MineComponent
+    MineComponent,
+    MineClickDirective,
   ],
   imports: [
     BrowserModule,

@@ -12,10 +12,10 @@ class Mine(
         var displayStr = ""
 
         if (isRevealed) {
-            if (isBomb) {
-                displayStr = "x"
+            displayStr = if (isBomb) {
+                "x"
             } else {
-                displayStr = this.howManyTouchingBombs.toString()
+                this.howManyTouchingBombs.toString()
             }
         }
         return displayStr

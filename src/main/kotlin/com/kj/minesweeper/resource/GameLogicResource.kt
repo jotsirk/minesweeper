@@ -50,7 +50,7 @@ class GameLogicResource {
 
     @PostMapping("/api/register-mine-click")
     @ResponseStatus(HttpStatus.OK)
-    fun registerMineClik(@RequestBody mineCoordinates: Array<Int>): MutableCollection<MineDto> {
+    fun registerMineClick(@RequestBody mineCoordinates: Array<Int>): MutableCollection<MineDto> {
         return mineDtoConverter.convertAffectedMinesToDtoList(mineFieldService.registerMineClick(mineCoordinates))
     }
 }

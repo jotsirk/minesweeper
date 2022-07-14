@@ -8,6 +8,7 @@ import kotlin.random.Random
 class MineFieldService {
 
     private var mineField: Array<Array<Mine?>>? = null
+    private var isGameOver = false
 
     fun getMineField(): Array<Array<Mine?>>? {
         if (mineField.isNullOrEmpty()) {
@@ -74,7 +75,7 @@ class MineFieldService {
         mine.isRevealed = true
 
         if (mine.isBomb) {
-            // todo return some game ending event
+            isGameOver = true
         }
         if (mine.howManyTouchingBombs == 0) {
             // todo reveal all directly touching bombs as well

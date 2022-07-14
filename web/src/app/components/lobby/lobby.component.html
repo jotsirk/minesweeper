@@ -1,14 +1,20 @@
 <div>
+  <div class="col-6">
+    <div *ngFor="let mines of mineField" class="mine-field-row">
+      <mine *ngFor="let mine of mines"
+            [mine]="mine"
+            [isGameOver]="isGameOver"
+            (changedMinesEvent)="updateMineField($event)"></mine>
+    </div>
+    <div *ngIf="isGameOver">
+      GAME OVER
+    </div>
+  </div>
   <div class="user-list col-3">
     <div>
       <div *ngFor="let user of gameroomUsers">
         {{ user.username }}
       </div>
-    </div>
-  </div>
-  <div class="col-6">
-    <div *ngFor="let mines of mineField" class="mine-field-row">
-      <mine *ngFor="let mine of mines" [mine]="mine" (changedMinesEvent)="updateMineField($event)"></mine>
     </div>
   </div>
   <div class="chat-space col-3">
