@@ -84,6 +84,25 @@ class MineFieldService {
         return affectedMines
     }
 
+    fun registerMineFlagClick(clickedMineCoordinates: Array<Int>): List<Mine> {
+        val mine = mineField!![clickedMineCoordinates[0]][clickedMineCoordinates[1]]
+        return flagMineClick(mine!!)
+    }
+
+    private fun flagMineClick(mine: Mine): List<Mine> {
+        val affectedMines = mutableListOf(mine)
+        mine.isRevealed = true
+
+        if (mine.isBomb) {
+            isGameOver = true
+        }
+        if (mine.howManyTouchingBombs == 0) {
+            // todo reveal all directly touching bombs as well
+        }
+
+        return affectedMines
+    }
+
     companion object {
         private val fieldCircle = arrayOf(
             intArrayOf(-1, -1),
