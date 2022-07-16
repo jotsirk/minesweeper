@@ -2,6 +2,7 @@ package com.kj.minesweeper.resource
 
 import com.kj.minesweeper.model.MessageModel
 import com.kj.minesweeper.model.User
+import com.kj.minesweeper.model.dto.GameDto
 import com.kj.minesweeper.model.dto.MineDto
 import com.kj.minesweeper.service.MineFieldService
 import com.kj.minesweeper.service.UserService
@@ -57,6 +58,13 @@ class GameLogicResource {
     @PostMapping("/api/register-flag-click")
     @ResponseStatus(HttpStatus.OK)
     fun registerFlagClick(@RequestBody mineCoordinates: Array<Int>): MutableCollection<MineDto> {
-        return mineDtoConverter.convertAffectedMinesToDtoList(mineFieldService.registerFlagClick(mineCoordinates))
+        return mineDtoConverter.convertAffectedMinesToDtoList(mineFieldService.registerMineFlagClick(mineCoordinates))
+    }
+
+    @GetMapping("/api/load-game")
+    @ResponseStatus(HttpStatus.OK)
+    fun loadGame(): GameDto {
+        // todo at some point this should be a game room specific thing
+        return mineFieldService.loadGame()
     }
 }

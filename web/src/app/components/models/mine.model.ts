@@ -4,12 +4,14 @@ export class Mine {
   private _indexY: number;
   private _displayValue: string = '';
   private _isRevealed: boolean = false;
+  private _isFlagged: boolean = false;
 
-  constructor(indexX: number, indexY: number, displayValue: string, isRevealed: boolean) {
+  constructor(indexX: number, indexY: number, displayValue: string, isRevealed: boolean, isFlagged: boolean) {
     this._indexX = indexX;
     this._indexY = indexY;
     this._displayValue = displayValue;
     this._isRevealed = isRevealed;
+    this._isFlagged = isFlagged;
   }
 
   get indexX(): number {
@@ -42,6 +44,14 @@ export class Mine {
 
   set displayValue(value: string) {
     this._displayValue = value;
+  }
+
+  get isFlagged(): boolean {
+    return this._isFlagged;
+  }
+
+  set isFlagged(value: boolean) {
+    this._isFlagged = value;
   }
 
   get coordinates() {

@@ -15,15 +15,23 @@ export class GameService {
     return this.httpClient.post<User>(this.baseUrl + "/api/register-user", user);
   }
 
+  loadGame(): Observable<any> {
+    return this.httpClient.get(this.baseUrl + "/api/load-game")
+  }
+
   getGameroomUsers(): Observable<any> {
-    return this.httpClient.get(this.baseUrl + "/api/get-users")
+    return this.httpClient.get(this.baseUrl + "/api/get-users");
   }
 
   getMinefield(): Observable<any> {
-    return this.httpClient.get(this.baseUrl + '/api/get-minefield')
+    return this.httpClient.get(this.baseUrl + '/api/get-minefield');
   }
 
   registerMineClick(mineCoordinates: number[]): Observable<any> {
-    return this.httpClient.post(this.baseUrl + '/api/register-mine-click', mineCoordinates)
+    return this.httpClient.post(this.baseUrl + '/api/register-mine-click', mineCoordinates);
+  }
+
+  registerFlagClick(mineCoordinates: number[]): Observable<any> {
+    return this.httpClient.post(this.baseUrl + '/api/register-flag-click', mineCoordinates);
   }
 }

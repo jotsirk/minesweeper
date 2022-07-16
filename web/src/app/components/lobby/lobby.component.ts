@@ -28,9 +28,16 @@ export class LobbyComponent implements OnInit {
   ngOnInit() {
     // todo check about the current user thing. refresh loses username and everything else will break because of this
     this.currentUser = history.state;
+    this.loadGame();
     this.loadGameRoomUser();
     this.connect();
     this.loadMineField();
+  }
+
+  loadGame() {
+    this.gameService.loadGame().subscribe(data => {
+      this.isGameOver = data['isGameOver'];
+    });
   }
 
   loadGameRoomUser() {
@@ -74,7 +81,7 @@ export class LobbyComponent implements OnInit {
     for (let i = 0; i < generatedMineField.length; i++) {
       for (let j = 0; j < generatedMineField[i].length; j++) {
         mine = generatedMineField[i][j];
-        rowMines.push(new Mine(i, j, mine.displayValue, mine.isRevealed));
+        rowMines.push(new Mine(i, j, mine.displayValue, mine.isRevealed, mine.isFlagged));
       }
       this.mineField.push(rowMines);
       rowMines = [];
@@ -85,9 +92,9 @@ export class LobbyComponent implements OnInit {
     let mine: Mine;
 
     for (const changedMine of changedMines) {
-      mine = this.mineField[changedMine.indexX][changedMine.indexY];
-      this.mineField[changedMine.indexX][changedMine.indexY] =
-        new Mine(changedMine.indexX, changedMine.indexY, changedMine.displayValue, changedMine.isRevealed);
+      this.mineField[changedMine.indexX][changedMine.indexY].isFlagged = changedMine.isFlagged;
+      this.mineField[changedMine.indexX][changedMine.indexY].displayValue = changedMine.displayValue;
+      this.mineField[changedMine.indexX][changedMine.indexY].isRevealed = changedMine.isRevealed;
 
       if (changedMine.displayValue === 'x') {
         this.isGameOver = true;

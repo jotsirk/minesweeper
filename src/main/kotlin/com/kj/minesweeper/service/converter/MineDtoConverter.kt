@@ -19,7 +19,8 @@ class MineDtoConverter {
                     indexX = mine.indexX,
                     indexY = mine.indexY,
                     isRevealed = mine.isRevealed,
-                    displayValue = mine.displayString()
+                    displayValue = mine.displayString(),
+                    isFlagged = mine.isFlagged,
                 )
             }
         }
@@ -36,6 +37,7 @@ class MineDtoConverter {
                     indexY = it.indexY,
                     isRevealed = it.isRevealed,
                     displayValue = it.displayString(),
+                    isFlagged = it.isFlagged,
                 )
             )
         }

@@ -1,6 +1,7 @@
 package com.kj.minesweeper.service
 
 import com.kj.minesweeper.model.Mine
+import com.kj.minesweeper.model.dto.GameDto
 import org.springframework.stereotype.Service
 import kotlin.random.Random
 
@@ -91,16 +92,14 @@ class MineFieldService {
 
     private fun flagMineClick(mine: Mine): List<Mine> {
         val affectedMines = mutableListOf(mine)
-        mine.isRevealed = true
 
-        if (mine.isBomb) {
-            isGameOver = true
-        }
-        if (mine.howManyTouchingBombs == 0) {
-            // todo reveal all directly touching bombs as well
-        }
+        mine.isFlagged = !mine.isFlagged
 
         return affectedMines
+    }
+
+    fun loadGame(): GameDto {
+        return GameDto(isGameOver = this.isGameOver)
     }
 
     companion object {

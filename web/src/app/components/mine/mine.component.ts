@@ -29,6 +29,16 @@ export class MineComponent {
   onFlag(event: any) {
     event.preventDefault();
 
-    console.log("mine flagged");
+    if (this.isGameOver) {
+      return;
+    }
+
+    console.log('click');
+
+    this.gameService.registerFlagClick(this.mine.coordinates)
+      .subscribe(data => {
+        console.log(data);
+        this.changedMinesEvent.emit(data);
+      });
   }
 }
