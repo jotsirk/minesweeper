@@ -2,8 +2,9 @@ package com.kj.minesweeper.service
 
 import com.kj.minesweeper.model.Mine
 import com.kj.minesweeper.model.dto.GameDto
-import org.springframework.stereotype.Service
+import java.util.*
 import kotlin.random.Random
+import org.springframework.stereotype.Service
 
 @Service
 class MineFieldService {
@@ -77,12 +78,38 @@ class MineFieldService {
 
         if (mine.isBomb) {
             isGameOver = true
-        }
-        if (mine.howManyTouchingBombs == 0) {
-            // todo reveal all directly touching bombs as well
+        } else if (mine.howManyTouchingBombs == 0) {
+            openTouchingFieldsWithNoNearbyBombs(affectedMines, mine)
         }
 
         return affectedMines
+    }
+
+    private fun openTouchingFieldsWithNoNearbyBombs(affectedMines: MutableCollection<Mine>, selectedMine: Mine) {
+        var stackActiveMine: Mine
+        var stackAdjacentMine: Mine
+        val mineStack: Stack<Mine> = Stack()
+        mineStack.add(selectedMine)
+
+        while (mineStack.isNotEmpty()) {
+            stackActiveMine = mineStack.pop()
+            for (directionArray in adjacentMines) {
+                try {
+                    stackAdjacentMine =
+                        mineField?.get(stackActiveMine.indexX - directionArray[0])!![stackActiveMine.indexY - directionArray[1]]!!
+
+                    if (stackAdjacentMine.howManyTouchingBombs == 0 && !stackAdjacentMine.isRevealed) {
+                        stackAdjacentMine.isRevealed = true
+                        mineStack.add(stackAdjacentMine)
+                    }
+                } catch (ex: IndexOutOfBoundsException) {
+                    continue
+                }
+            }
+            if (!affectedMines.contains(stackActiveMine) && stackActiveMine.isRevealed) {
+                affectedMines.add(stackActiveMine)
+            }
+        }
     }
 
     fun registerMineFlagClick(clickedMineCoordinates: Array<Int>): List<Mine> {
@@ -112,6 +139,13 @@ class MineFieldService {
             intArrayOf(-1, 1),
             intArrayOf(0, 1),
             intArrayOf(1, 1),
+        )
+
+        private val adjacentMines = arrayOf(
+            intArrayOf(0, -1),
+            intArrayOf(1, 0),
+            intArrayOf(0, 1),
+            intArrayOf(-1, 0),
         )
     }
 }
