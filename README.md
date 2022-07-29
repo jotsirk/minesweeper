@@ -3,11 +3,11 @@ TODO list:
 - make the minesweeper board more presentable
 - make the entire playing view normal for computer screens(for now)
 - make a singleplayer game playable
-  - [ ] for now only one instance of 1 game is allowed and playable 
+  - [x] for now only one instance of 1 game is allowed and playable 
   - [x] clickable mines
   - [x] not displayed fields
-  - [ ] empty cells open all cells
-  - [ ] make bombs flaggable
+  - [x] empty cells open all cells
+  - [x] make bombs/fields flaggable
   - [ ] add a frame
   - [ ] add a timer
   - [ ] add number of bombs on the frame
@@ -17,8 +17,8 @@ TODO list:
   - [ ] clean up code
   - [ ] make the game view better
   - [ ] clean up ng components
-  - [ ] add flagging possibilities
-  - [ ] add gameover function where all bombs are flagged
+  - [x] add flagging possibilities
+  - [x] add gameover function when game is won
 - make the minesweeper board dynamic and realtime for everyone in the lobby
 - look into game generation from main view
 - add server services for singleplayer game
