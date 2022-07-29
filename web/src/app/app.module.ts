@@ -9,6 +9,7 @@ import {LobbyComponent} from "./components/lobby/lobby.component";
 import {HttpClientModule} from "@angular/common/http";
 import {MineComponent} from "./components/mine/mine.component";
 import {MineClickDirective} from "./components/lobby/directive/mine-click.directive";
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [
@@ -23,6 +24,7 @@ import {MineClickDirective} from "./components/lobby/directive/mine-click.direct
     AppRoutingModule,
     FormsModule,
     HttpClientModule,
+    BrowserAnimationsModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

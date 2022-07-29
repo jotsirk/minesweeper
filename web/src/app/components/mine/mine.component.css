@@ -1,10 +1,6 @@
 .mine {
-  width: 2em;
-  height: 2em;
-  border: 1px solid gray;
-  float: left;
+  width: 35px;
+  height: 35px;
+  border: 2px solid gray;
 }
 
-.mine-row {
-  display: inline-block;
-}

@@ -6,5 +6,21 @@
 }
 
 .mine-field-row {
-  width: 20em;
+  background: white;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.mine-element {
+
+}
+
+.frame {
+  padding: 20px;
+  background: lightgray;
+}
+
+.chat-space {
+  display: flex;
+  width: 100%;
 }

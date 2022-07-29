@@ -1,38 +1,51 @@
 <div>
-  <div class="col-6">
-    <div>
-      <button (click)="restartGame()">RESTART</button>
+    <div class="">
+        <div class="container">
+            <div class="frame">
+                <div class="frame-header">
+                    <div class="mine-count-conainer">
+
+                    </div>
+                    <div class="game-button-container">
+                        <button (click)="restartGame()">RESTART</button>
+                    </div>
+                    <div class="timer-container">
+
+                    </div>
+                </div>
+                <div *ngFor="let mines of mineField" class="mine-field-row">
+                    <mine class="mine-element"
+                          *ngFor="let mine of mines"
+                          [mine]="mine"
+                          [isGameOver]="isGameOver"
+                          (changedMinesEvent)="updateMineField($event)"></mine>
+                </div>
+            </div>
+        </div>
+        <div *ngIf="isGameOver">
+            GAME OVER
+        </div>
+        <div *ngIf="isGameWon">
+            WINNER WINNER CHICKEN DINNER
+        </div>
     </div>
-    <div *ngFor="let mines of mineField" class="mine-field-row">
-      <mine *ngFor="let mine of mines"
-            [mine]="mine"
-            [isGameOver]="isGameOver"
-            (changedMinesEvent)="updateMineField($event)"></mine>
-    </div>
-    <div *ngIf="isGameOver">
-      GAME OVER
-    </div>
-    <div *ngIf="isGameWon">
-      WINNER WINNER CHICKEN DINNER
-    </div>
-  </div>
-  <div class="user-list col-3">
-    <div>
-      <div *ngFor="let user of gameroomUsers">
-        {{ user.username }}
-      </div>
-    </div>
-  </div>
-  <div class="chat-space col-3">
-    <div class="chat-area">
-      <p *ngFor="let message of chatRoomMessages">
-        {{ message }}
-      </p>
-    </div>
-    <div>
-      <input type="text" class="message-field" [(ngModel)]="messageField">
-      <button class="submit-message" (click)="sendMessage()">
-        Submit
+    <div class="chat-space container">
+        <div class="user-container">
+            <div>
+                <div *ngFor="let user of gameroomUsers">
+                    {{ user.username }}
+                </div>
+            </div>
+        </div>
+        <div class="chat-area">
+            <p *ngFor="let message of chatRoomMessages">
+                {{ message }}
+            </p>
+        </div>
+        <div>
+            <input type="text" class="message-field" [(ngModel)]="messageField">
+            <button class="submit-message" (click)="sendMessage()">
+                Submit
       </button>
     </div>
   </div>
