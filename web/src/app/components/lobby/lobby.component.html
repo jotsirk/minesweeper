@@ -1,5 +1,8 @@
 <div>
   <div class="col-6">
+    <div>
+      <button (click)="restartGame()">RESTART</button>
+    </div>
     <div *ngFor="let mines of mineField" class="mine-field-row">
       <mine *ngFor="let mine of mines"
             [mine]="mine"
@@ -8,6 +11,9 @@
     </div>
     <div *ngIf="isGameOver">
       GAME OVER
+    </div>
+    <div *ngIf="isGameWon">
+      WINNER WINNER CHICKEN DINNER
     </div>
   </div>
   <div class="user-list col-3">

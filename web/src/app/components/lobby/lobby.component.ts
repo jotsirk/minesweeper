@@ -15,6 +15,7 @@ export class LobbyComponent implements OnInit {
   private currentUser: User | null = null;
   private stompClient: Stomp.Client | null = null;
   isGameOver: boolean = false;
+  isGameWon: boolean = false;
   chatRoomMessages: string[] = [];
   gameroomUsers: User[] = [];
   mineField: Mine[][] = [];
@@ -89,9 +90,12 @@ export class LobbyComponent implements OnInit {
   }
 
   updateMineField(changedMines: Mine[]) {
-    let mine: Mine;
-
     for (const changedMine of changedMines) {
+      if (changedMine.displayValue === 'w') {
+        this.isGameWon = true;
+        continue;
+      }
+
       this.mineField[changedMine.indexX][changedMine.indexY].isFlagged = changedMine.isFlagged;
       this.mineField[changedMine.indexX][changedMine.indexY].displayValue = changedMine.displayValue;
       this.mineField[changedMine.indexX][changedMine.indexY].isRevealed = changedMine.isRevealed;
@@ -101,5 +105,15 @@ export class LobbyComponent implements OnInit {
         return;
       }
     }
+  }
+
+  restartGame() {
+    this.mineField = [];
+    this.isGameWon = false;
+    this.isGameOver = false;
+    this.gameService.restartGame().subscribe(
+        data => {
+          this.initMineField(data);
+        });
   }
 }

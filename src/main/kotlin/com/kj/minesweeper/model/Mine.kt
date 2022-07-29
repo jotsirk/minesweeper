@@ -14,6 +14,8 @@ class Mine(
         if (isRevealed) {
             displayStr = if (isBomb) {
                 "x"
+            } else if (howManyTouchingBombs == 9) {
+                "w"
             } else {
                 this.howManyTouchingBombs.toString()
             }

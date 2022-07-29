@@ -16,7 +16,7 @@ export class MineComponent {
   }
 
   onClick() {
-    if (this.isGameOver) {
+    if (this.isGameOver || this.mine.isFlagged) {
       return;
     }
 
@@ -33,11 +33,8 @@ export class MineComponent {
       return;
     }
 
-    console.log('click');
-
     this.gameService.registerFlagClick(this.mine.coordinates)
       .subscribe(data => {
-        console.log(data);
         this.changedMinesEvent.emit(data);
       });
   }

@@ -34,4 +34,8 @@ export class GameService {
   registerFlagClick(mineCoordinates: number[]): Observable<any> {
     return this.httpClient.post(this.baseUrl + '/api/register-flag-click', mineCoordinates);
   }
+
+  restartGame(): Observable<any> {
+    return this.httpClient.get(this.baseUrl + '/api/restart-game');
+  }
 }

@@ -11,6 +11,8 @@ class MineFieldService {
 
     private var mineField: Array<Array<Mine?>>? = null
     private var isGameOver = false
+    private var isGameWon = false
+    private var numOfFieldsToOpen: Int = 0
 
     fun getMineField(): Array<Array<Mine?>>? {
         if (mineField.isNullOrEmpty()) {
@@ -30,6 +32,7 @@ class MineFieldService {
 
         setBombsInPlayingField(numOfBombs, playingField)
         this.mineField = playingField
+        this.numOfFieldsToOpen = sizeOfField * sizeOfField - numOfBombs
     }
 
     private fun setBombsInPlayingField(numOfBombs: Int, playingField: Array<Array<Mine?>>) {
@@ -78,11 +81,27 @@ class MineFieldService {
 
         if (mine.isBomb) {
             isGameOver = true
+            return affectedMines
         } else if (mine.howManyTouchingBombs == 0) {
             openTouchingFieldsWithNoNearbyBombs(affectedMines, mine)
         }
 
+        this.numOfFieldsToOpen -= affectedMines.size
+
+        if (this.numOfFieldsToOpen == 0) {
+            this.isGameWon = true
+            // todo send event of winning, but right now just send a mine with a winning symbol
+            affectedMines.add(Mine(100, 100, 9, isBomb = false, isFlagged = false, isRevealed = true))
+        }
+
         return affectedMines
+    }
+
+    fun restartGame(): Array<Array<Mine?>>? {
+        generateMineField(10, 10)
+        this.isGameWon = false
+        this.isGameOver = false
+        return this.mineField
     }
 
     private fun openTouchingFieldsWithNoNearbyBombs(affectedMines: MutableCollection<Mine>, selectedMine: Mine) {

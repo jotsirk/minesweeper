@@ -11,7 +11,11 @@ import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.http.HttpStatus
 import org.springframework.messaging.handler.annotation.MessageMapping
 import org.springframework.messaging.handler.annotation.SendTo
-import org.springframework.web.bind.annotation.*
+import org.springframework.web.bind.annotation.GetMapping
+import org.springframework.web.bind.annotation.PostMapping
+import org.springframework.web.bind.annotation.RequestBody
+import org.springframework.web.bind.annotation.ResponseStatus
+import org.springframework.web.bind.annotation.RestController
 
 @RestController
 class GameLogicResource {
@@ -66,5 +70,11 @@ class GameLogicResource {
     fun loadGame(): GameDto {
         // todo at some point this should be a game room specific thing
         return mineFieldService.loadGame()
+    }
+
+    @GetMapping("/api/restart-game")
+    @ResponseStatus(HttpStatus.OK)
+    fun restartGame(): Array<Array<MineDto?>> {
+        return mineDtoConverter.convertMineFieldToDtoMineField(mineFieldService.restartGame())
     }
 }
