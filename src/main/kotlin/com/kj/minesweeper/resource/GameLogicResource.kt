@@ -77,4 +77,10 @@ class GameLogicResource {
     fun restartGame(): Array<Array<MineDto?>> {
         return mineDtoConverter.convertMineFieldToDtoMineField(mineFieldService.restartGame())
     }
+
+    @GetMapping("/api/get-mine-count")
+    @ResponseStatus(HttpStatus.OK)
+    fun getMineCount(): Int {
+        return mineFieldService.getNumOfBombs()
+    }
 }

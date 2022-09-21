@@ -20,6 +20,8 @@ export class LobbyComponent implements OnInit {
   gameroomUsers: User[] = [];
   mineField: Mine[][] = [];
   messageField = '';
+  mines: number = 0;
+  flagsPlanted: number = 0;
 
   constructor(
     private gameService: GameService
@@ -33,6 +35,7 @@ export class LobbyComponent implements OnInit {
     this.loadGameRoomUser();
     this.connect();
     this.loadMineField();
+    this.getMineCount();
   }
 
   loadGame() {
@@ -54,6 +57,14 @@ export class LobbyComponent implements OnInit {
         _this.showMessage(JSON.parse(hello.body));
       })
     })
+  }
+
+  getMineCount() {
+    this.gameService.getMineCount().subscribe( data => this.mines = data);
+  }
+
+  displayMineCount() {
+    return `${this.flagsPlanted}/${this.mines}`;
   }
 
   sendMessage() {

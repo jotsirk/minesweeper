@@ -38,4 +38,8 @@ export class GameService {
   restartGame(): Observable<any> {
     return this.httpClient.get(this.baseUrl + '/api/restart-game');
   }
+
+  getMineCount(): Observable<any> {
+    return this.httpClient.get(this.baseUrl + '/api/get-mine-count');
+  }
 }

@@ -12,13 +12,13 @@ TODO list:
   - [ ] add a timer
   - [ ] add number of bombs on the frame
   - [ ] make hidden field style better
-  - [ ] make open field style
+  - [ ] make open field style better
   - [ ] write tests
   - [ ] clean up code
   - [ ] make the game view better
   - [ ] clean up ng components
   - [x] add flagging possibilities
-  - [x] add gameover function when game is won
+  - [x] add gamewon function when game is won
 - make the minesweeper board dynamic and realtime for everyone in the lobby
 - look into game generation from main view
 - add server services for singleplayer game

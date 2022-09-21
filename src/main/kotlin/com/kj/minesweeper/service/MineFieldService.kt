@@ -2,9 +2,9 @@ package com.kj.minesweeper.service
 
 import com.kj.minesweeper.model.Mine
 import com.kj.minesweeper.model.dto.GameDto
+import org.springframework.stereotype.Service
 import java.util.*
 import kotlin.random.Random
-import org.springframework.stereotype.Service
 
 @Service
 class MineFieldService {
@@ -13,10 +13,11 @@ class MineFieldService {
     private var isGameOver = false
     private var isGameWon = false
     private var numOfFieldsToOpen: Int = 0
+    private var numOfBombs: Int = 0
 
     fun getMineField(): Array<Array<Mine?>>? {
         if (mineField.isNullOrEmpty()) {
-            generateMineField(10, 10)
+            generateMineField(20, 10)
         }
         return mineField
     }
@@ -33,6 +34,7 @@ class MineFieldService {
         setBombsInPlayingField(numOfBombs, playingField)
         this.mineField = playingField
         this.numOfFieldsToOpen = sizeOfField * sizeOfField - numOfBombs
+        this.numOfBombs = numOfBombs
     }
 
     private fun setBombsInPlayingField(numOfBombs: Int, playingField: Array<Array<Mine?>>) {
@@ -146,6 +148,10 @@ class MineFieldService {
 
     fun loadGame(): GameDto {
         return GameDto(isGameOver = this.isGameOver)
+    }
+
+    fun getNumOfBombs(): Int {
+        return this.numOfBombs
     }
 
     companion object {

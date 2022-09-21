@@ -3,8 +3,8 @@
         <div class="container">
             <div class="frame">
                 <div class="frame-header">
-                    <div class="mine-count-conainer">
-
+                    <div class="mine-count-container">
+                        {{ displayMineCount() }}
                     </div>
                     <div class="game-button-container">
                         <button (click)="restartGame()">RESTART</button>
@@ -29,7 +29,7 @@
             WINNER WINNER CHICKEN DINNER
         </div>
     </div>
-    <div class="chat-space container">
+    <div class="chat-space container" style="visibility: hidden;">
         <div class="user-container">
             <div>
                 <div *ngFor="let user of gameroomUsers">
